@@ -8,7 +8,6 @@ body{
 canvas{
     display: block;
     background: white;
-    /* border: 1px solid red; */
     box-sizing: border-box;
 }
 
@@ -35,11 +34,38 @@ canvas{
 }
 
 #loading{
-    height: 10px;
-    width: 10px;
-    background: red;
+    height: 100vh;
+    width: 100vw;
+    background: #bbb;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loading_content h1{
+    font-family: arial;
+    text-transform: uppercase;
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: 900;
+    font-size: 16px;
+    color: #333;
+}
+#loading_bar{
+    background: #333;
+    height: 6px;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#loaded{
+    height: 100%;
+    background: white;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(0);
 }
