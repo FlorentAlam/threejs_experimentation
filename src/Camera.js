@@ -7,8 +7,6 @@ export default class Camera{
         this.initialPosition = {
             x: (window.innerWidth - 6504) / -109.625, y: 10, z: 0
         }
-        console.log(window.innerWidth);
-        console.log((window.innerWidth - 6504) / -109.625);
         this.positions = [
             {x: 0, z: (window.innerWidth - 6504) / -109.625},
             {x: (window.innerWidth - 6504) / -109.625, z: 0},
