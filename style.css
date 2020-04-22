@@ -1,0 +1,35 @@
+body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background: white;
+}
+canvas{
+    display: block;
+    background: white;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+}
+
+#buttons_container{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#buttons_container button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: .4;
+    transition-duration: .6s;
+}
+#buttons_container button:hover{
+    opacity: .9;
+}
+#buttons_container i{
+    font-size: 6rem;
+}
