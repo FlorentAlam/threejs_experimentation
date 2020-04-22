@@ -1,0 +1,23 @@
+{
+  "name": "voyages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx webpack"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "file-loader": "^6.0.0",
+    "glslify-loader": "^2.0.0",
+    "raw-loader": "^4.0.1",
+    "three": "^0.115.0",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "gsap": "^3.2.6"
+  }
+}
