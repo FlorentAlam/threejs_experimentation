@@ -5,12 +5,14 @@ export default class Camera{
     constructor(){
         this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 300);
         this.initialPosition = {
-            x: 48, y: 10, z: 0
+            x: (window.innerWidth - 6504) / -109.625, y: 10, z: 0
         }
+        console.log(window.innerWidth);
+        console.log((window.innerWidth - 6504) / -109.625);
         this.positions = [
-            {x: 0, z: 48},
-            {x: 48, z: 0},
-            {x: 0, z: -48}
+            {x: 0, z: (window.innerWidth - 6504) / -109.625},
+            {x: (window.innerWidth - 6504) / -109.625, z: 0},
+            {x: 0, z: -(window.innerWidth - 6504) / -109.625}
         ];
         this.currPosIndex = 1;
         this.isMoving = false;
