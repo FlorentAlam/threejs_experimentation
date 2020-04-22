@@ -1,5 +1,6 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { TextureLoader } from 'three';
+import gsap from 'gsap';
 
 export default class Loader{
     constructor(){
@@ -7,6 +8,8 @@ export default class Loader{
         this.loaded = 0;
 
         this.items = {};
+
+        this.loadingBar = document.getElementById('loaded');
 
         this.initLoaders();
     }
@@ -33,7 +36,12 @@ export default class Loader{
         this.loaded++;
         this.items[item.name] = data;
 
+        gsap.to(this.loadingBar, {scaleX: this.loaded / this.toLoad, duration: 0.2, ease: 'Expo.easeOut'})
+
         if(this.loaded === this.toLoad){
+            const loading = document.getElementById('loading');
+            gsap.to(loading, {opacity: 0, duration: .4});
+            gsap.to(loading, {display: 'none', duration: 0.01, delay: .4});
             window.dispatchEvent(new Event('ressourcesLoaded'));
         }
     }
