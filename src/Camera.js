@@ -4,20 +4,23 @@ import gsap from 'gsap';
 export default class Camera{
     constructor(){
         this.camera = new PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 300);
+
+        // Set camera distance depending on screen width
+        const cameraPositionFormula = (window.innerWidth - 6504) / -109.625;
+
         this.initialPosition = {
-            x: (window.innerWidth - 6504) / -109.625, y: 10, z: 0
+            x: cameraPositionFormula, y: 10, z: 0
         }
         this.positions = [
-            {x: 0, z: (window.innerWidth - 6504) / -109.625},
-            {x: (window.innerWidth - 6504) / -109.625, z: 0},
-            {x: 0, z: -(window.innerWidth - 6504) / -109.625}
+            {x: 0, z: cameraPositionFormula},
+            {x: cameraPositionFormula, z: 0},
+            {x: 0, z: -cameraPositionFormula}
         ];
         this.currPosIndex = 1;
         this.isMoving = false;
 
         window.addEventListener('keydown', (event) => {
-            if(event.key === 'ArrowLeft'){ this.moveLeft(); } 
-            else if (event.key === 'ArrowRight'){ this.moveRight(); }
+            if(event.key === 'ArrowLeft' || event.key === 'ArrowRight'){ this.move(event.key); } 
         });
 
         window.addEventListener('tick', () => {
@@ -29,33 +32,22 @@ export default class Camera{
         this.addControls();
     }
 
-    moveLeft(){
-        if(this.currPosIndex > 0 && !this.isMoving){
+    move(direction){
+        if(!this.isMoving){
+            this.currPosIndex = (this.currPosIndex > 0 && direction === "ArrowLeft") ? this.currPosIndex - 1 : ((this.currPosIndex < 2 && direction === "ArrowRight") ? this.currPosIndex + 1 : this.currPosIndex);
             this.isMoving = true;
-            this.currPosIndex--;
-            this.move();
-        }
-    }
-    moveRight(){
-        if(this.currPosIndex < 2 && !this.isMoving){
-            this.isMoving = true;
-            this.currPosIndex++;
-            this.move();
-        }
-    }
-
-    move(){
-        gsap.to(this.initialPosition, {x: this.positions[this.currPosIndex].x, z: this.positions[this.currPosIndex].z, duration: 1, ease: 'circ', onComplete: () => {this.isMoving = false}});
+            gsap.to(this.initialPosition, {x: this.positions[this.currPosIndex].x, z: this.positions[this.currPosIndex].z, duration: 1, ease: 'circ', onComplete: () => {this.isMoving = false}});
+        }  
     }
 
     addControls(){
         const toLeftBtn = document.querySelector('.toLeft-button');
         const toRightBtn = document.querySelector('.toRight-button');
         toLeftBtn.addEventListener('click', () => {
-            this.moveLeft();
+            this.move("ArrowLeft");
         });
         toRightBtn.addEventListener('click', () => {
-            this.moveRight();
+            this.move("ArrowRight");
         });
     }
 }

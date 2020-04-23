@@ -25,10 +25,10 @@ export default class Game{
         });
         this.renderer.setClearColor(0xffffff, 1);
         this.renderer.setPixelRatio(2);
-        // this.renderer.physicallyCorrectLights = true;
-        // this.renderer.gammaFactor = 2.2;
-        // this.renderer.gammaOutPut = true;
-        // this.renderer.autoClear = false;  
+        this.renderer.physicallyCorrectLights = true;
+        this.renderer.gammaFactor = 2.2;
+        this.renderer.gammaOutPut = true;
+        this.renderer.autoClear = false;  
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.scene.background = new Color("rgb(200, 200, 200)")
 
@@ -44,6 +44,5 @@ export default class Game{
 
     setWorld(){
         this.world = new World({scene: this.scene, ressources: this.ressources});
-        this.scene.add(this.world.container);
     }
 }

@@ -1,4 +1,3 @@
-import { Object3D } from "three";
 import Head from "./Head";
 
 export default class World{

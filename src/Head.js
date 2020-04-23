@@ -7,51 +7,42 @@ export default class Head{
         this.ressources = options.ressources;
 
         this.setModels();
+        this.setPositions();
+        this.animate();
         this.setMaterials();
     }
 
     setModels(){
-        this.models.peru_head_gold = this.ressources.loader.items.peru_head_gold;
-        this.models.peru_head_lapis = this.ressources.loader.items.peru_head_lapis;
-        this.models.peru_head_ruby = this.ressources.loader.items.peru_head_ruby;
-        this.models.peru_gold = this.ressources.loader.items.peru_gold;
-        this.models.peru_tuiles = this.ressources.loader.items.peru_tuiles;
+        const models = ['peru_head_gold', 'peru_head_lapis', 'peru_head_ruby', 'peru_gold', 'peru_tuiles', 'geisha_head_white', 'african_head', 'japon', 'cote_ivoire_violet', 'cote_ivoire_jaune', 'cote_ivoire_bleu', 'geisha_face', 'geisha_levre'];
 
-        this.models.geisha_head_white = this.ressources.loader.items.geisha_head_white;
-        this.models.african_head = this.ressources.loader.items.african_head;
+        models.forEach(model => {
+            this.models[model] = this.ressources.loader.items[model];
+        });
+    }
 
-        this.models.japon = this.ressources.loader.items.japon;
-        this.models.cote_ivoire_violet = this.ressources.loader.items.cote_ivoire_violet;
-        this.models.cote_ivoire_jaune = this.ressources.loader.items.cote_ivoire_jaune;
-        this.models.cote_ivoire_bleu = this.ressources.loader.items.cote_ivoire_bleu;
-        this.models.geisha_face = this.ressources.loader.items.geisha_face;
-        this.models.geisha_levre = this.ressources.loader.items.geisha_levre;
+    setPositions(){
+        this.setPos(this.models.cote_ivoire_bleu, "z", 8);
+        this.setPos(this.models.cote_ivoire_violet, "z", 8);
+        this.setPos(this.models.cote_ivoire_jaune, "z", 8);
+        this.setPos(this.models.japon, "x", -8);
+        this.setPos(this.models.peru_gold, "z", -6);
+        this.setPos(this.models.peru_tuiles, "z", -6);
+        this.setPos(this.models.peru_head_gold, "z", -3);
+        this.setPos(this.models.peru_head_lapis, "z", -3);
+        this.setPos(this.models.peru_head_ruby, "z", -3);
+        this.setPos(this.models.peru_head_gold, "y", -1);
+        this.setPos(this.models.peru_head_lapis, "y", -1);
+        this.setPos(this.models.peru_head_ruby, "y", -1);
+    }
+    setPos(obj, pos, value){
+        obj.scene.children[0].position[pos] += value;
+    }
 
-        this.models.cote_ivoire_bleu.scene.children[0].position.z += 8;
-        this.models.cote_ivoire_violet.scene.children[0].position.z += 8;
-        this.models.cote_ivoire_jaune.scene.children[0].position.z += 8;
-
-        this.models.japon.scene.children[0].position.x -= 8;
-
-        this.models.peru_gold.scene.children[0].position.z -= 6;
-        this.models.peru_tuiles.scene.children[0].position.z -= 6;
-
-        this.models.peru_head_gold.scene.children[0].position.z -= 3;
-        this.models.peru_head_lapis.scene.children[0].position.z -= 3;
-        this.models.peru_head_ruby.scene.children[0].position.z -= 3;
-        this.models.peru_head_gold.scene.children[0].position.y -= 1;
-        this.models.peru_head_lapis.scene.children[0].position.y -= 1;
-        this.models.peru_head_ruby.scene.children[0].position.y -= 1;
-
-        this.animateHead(this.models.peru_head_gold, this.models.peru_head_gold.scene.children[0].position.y);
-        this.animateHead(this.models.peru_head_ruby, this.models.peru_head_ruby.scene.children[0].position.y);
-        this.animateHead(this.models.peru_head_lapis, this.models.peru_head_lapis.scene.children[0].position.y);
-
-        this.animateHead(this.models.african_head, this.models.african_head.scene.children[0].position.y);
-        this.animateHead(this.models.geisha_face, this.models.geisha_face.scene.children[0].position.y);
-        this.animateHead(this.models.geisha_levre, this.models.geisha_levre.scene.children[0].position.y);
-        this.animateHead(this.models.geisha_head_white, this.models.geisha_head_white.scene.children[0].position.y);
-
+    animate(){
+        const animatedObjects = ['peru_head_gold', 'peru_head_lapis', 'peru_head_ruby', 'african_head', 'geisha_face', 'geisha_head_white', 'geisha_levre'];
+        animatedObjects.forEach(object => {
+            this.animateHead(this.models[object], this.models[object].scene.children[0].position.y);
+        })
     }
 
     animateHead(obj, initialYPos){
@@ -61,21 +52,24 @@ export default class Head{
     }
 
     setMaterials(){
-        this.setMaterial('peru_head_gold', 'gold_matcap');
-        this.setMaterial('peru_gold', 'gold_matcap');
-        this.setMaterial('geisha_head_white', 'blanc_matcap');
-        this.setMaterial('african_head', 'marron_matcap');
+        const association = {
+            'gold_matcap': ['peru_head_gold', 'peru_gold'],
+            'blanc_matcap': ['geisha_head_white'],
+            'marron_matcap': ['african_head'],
+            'ruby_matcap': ['japon', 'peru_head_ruby'],
+            'violet_matcap': ['cote_ivoire_violet'],
+            'jaune_matcap': ['cote_ivoire_jaune'],
+            'bleu_matcap': ['cote_ivoire_bleu'],
+            'rouge_matcap': ['geisha_face'],
+            'levres_matcap': ['geisha_levre'],
+            'lapis_matcap': ['peru_head_lapis', 'peru_tuiles']
+        }
 
-        this.setMaterial('japon', 'ruby_matcap');
-        this.setMaterial('cote_ivoire_violet', 'violet_matcap');
-        this.setMaterial('cote_ivoire_jaune', 'jaune_matcap');
-        this.setMaterial('cote_ivoire_bleu', 'bleu_matcap');
-        this.setMaterial('geisha_face', 'rouge_matcap');
-        this.setMaterial('geisha_levre', 'levres_matcap');
-
-        this.setMaterial('peru_head_lapis', 'lapis_matcap');
-        this.setMaterial('peru_tuiles', 'lapis_matcap');
-        this.setMaterial('peru_head_ruby', 'ruby_matcap');
+        for(let [key, value] of Object.entries(association)){
+            value.forEach(val => {
+                this.setMaterial(val, key);
+            });
+        }
     }
 
     setMaterial(item, texture){
